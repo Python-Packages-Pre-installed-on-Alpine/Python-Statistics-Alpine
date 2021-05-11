@@ -16,7 +16,7 @@ ADD $CLEANUP_SCRIPT_LOCATION .
 RUN set -o allexport \
     && . ./fix_all_gotchas.sh \
     && set +o allexport \
-    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev \
+    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-scipy \
     && python -c "import numpy" \
     && pip install wheel \
     && pip install statsmodels --no-build-isolation \
