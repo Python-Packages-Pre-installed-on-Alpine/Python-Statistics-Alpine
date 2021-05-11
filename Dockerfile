@@ -9,14 +9,13 @@ ARG ETC_ENVIRONMENT_LOCATION
 ARG CLEANUP_SCRIPT_LOCATION
 
 # Depending on the base image used, we might lack wget/curl/etc to fetch ETC_ENVIRONMENT_LOCATION.
-COPY environment.sh .
 ADD $FIX_ALL_GOTCHAS_SCRIPT_LOCATION .
 ADD $CLEANUP_SCRIPT_LOCATION .
 
 RUN set -o allexport \
     && . ./fix_all_gotchas.sh \
     && set +o allexport \
-    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-scipy \
+    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-scipy py3-pandas \
     && python -c "import numpy" \
     && pip install wheel \
     && pip install statsmodels --no-build-isolation \
